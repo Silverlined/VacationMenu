@@ -13,8 +13,7 @@ public class VacationMenu {
     static int counter;
     static Random random = new Random();
     static List<Integer> numbersSoFar = new ArrayList<>();
-    static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 
     public static void main(String[] args) throws IOException, ParseException {
@@ -234,7 +233,7 @@ public class VacationMenu {
 
     private static void getTypeVacation(BufferedWriter writer) throws IOException {
         while (true) {
-            String temp = input.nextLine();
+            String temp = (input.nextLine()).toLowerCase();
             if (temp.equalsIgnoreCase("платена") || temp.equalsIgnoreCase("неплатена")) {
                 writer.write(temp);
                 writer.newLine();
