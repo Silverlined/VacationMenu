@@ -14,7 +14,7 @@ public class VacationMenu {
     static Random random = new Random();
     static List<Integer> numbersSoFar = new ArrayList<>();
     static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
+    static final byte INDEX_INQUIRY_NUMBER = 7;
 
     public static void main(String[] args) throws IOException, ParseException {
         mainMenu();
@@ -136,7 +136,7 @@ public class VacationMenu {
         System.out.print("\t\tИме:       \t\t\tЕ-mail:    \t\t    ЕГН:   \t\t\t\tНачало:    \t\t\tКрай:  \t\t\t\tТип:    \t\t\tСтатус:\n");
         while (bReader.readLine() != null) {
             for (int j = 0; j < 8; j++) {
-                if (j != 7) {
+                if (j != INDEX_INQUIRY_NUMBER) {
                     System.out.printf("\t\t%-15s", bReader.readLine());
                 } else bReader.readLine();
             }
@@ -165,7 +165,7 @@ public class VacationMenu {
             for (int k = 1; k <= counter; k += 9) {
                 if (employeesInquiries[k].equals(nameEmployee)) {
                     for (int j = 0; j < 8; j++) {
-                        if (j != 7) {
+                        if (j != INDEX_INQUIRY_NUMBER) {
                             System.out.printf("\t\t%-15s", employeesInquiries[k + j]);
                         } else {
                             continue;
@@ -221,7 +221,7 @@ public class VacationMenu {
     private static void getName(BufferedWriter writer) throws IOException {
         while (true) {
             String temp = (input.nextLine()).trim();
-            if (!temp.isEmpty() && !(temp == null)) {
+            if (!temp.isEmpty() && temp.length() < 30) {
                 writer.write(temp);
                 writer.newLine();
                 break;
@@ -266,8 +266,7 @@ public class VacationMenu {
 
     private static void getEmail(BufferedWriter writer) throws IOException {
         while (true) {
-            String email = input.nextLine();
-            email.trim();
+            String email = (input.nextLine()).trim();
             if (validateEmail(email)) {
                 writer.write(email);
                 writer.newLine();
@@ -314,6 +313,8 @@ public class VacationMenu {
         for (int i = 0; i < counter; i++) {
             writer.println(inquiries[i]);
         }
+        writer.flush();
+        writer.close();
     }
 
     private static void returnToMainMenu() throws IOException, ParseException {
